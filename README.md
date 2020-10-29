@@ -6,4 +6,5 @@ This project demonstrates how researchers used RNA-sequencing of dissected post-
 
 ## Building the project using `run.py`
 * Use the command: `run.py data` to get the "SRRXXXXXXX.1" files into a CSV called `unprocessed.csv` so we can extract these RNA-seq reads using fastq-dump
+  * This downloads data from `data/srp073813` in the directory specified in `config/data-params.json`
 
