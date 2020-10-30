@@ -9,3 +9,5 @@ This project demonstrates how researchers used RNA-sequencing of dissected post-
 * Use the command: `python run.py data` to get the `SRRXXXXXXX.1` files into a CSV in the `data/output` folder so we can extract these RNA-seq reads using fastq-dump
   * This downloads data from `/data/srp073813` in the directory specified in `config/data-params.json`
 
+## Group Contributions
+* Justin and Joseph worked together (pair-programming) to work on the data ingestion pipeline over Zoom, adding code to run.py, data-params.json, and etl.py. Joseph wrote the README.md, while Justin revised it. 
