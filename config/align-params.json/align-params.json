@@ -1,6 +1,0 @@
-{
-    "data_dir": "/datasets/srp073813",
-    "kallisto_path": "/opt/kallisto_linux-v0.42.4/kallisto",
-    "kallisto_idx_location": "data/kallisto_output/idx',
-    "kallisto_output": "data/kallisto_output"
-}
