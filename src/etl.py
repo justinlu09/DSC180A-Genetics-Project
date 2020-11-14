@@ -1,6 +1,4 @@
 import os
-import pandas as pd
-
 
 def quality_check(data_dir, fastqc_path, fq_output_bc):
     data = sorted(os.listdir(data_dir))
@@ -30,13 +28,22 @@ def clean_adapters(data_dir, cutadapt_output):
         
         os.system('cutadapt -a AACCGGTT -A AACCGGTT -o ' + cutadapt_output + '/out.1.fastq.gz -p ' + cutadapt_output + '/out.2.fastq.gz ' + first_file + ' ' + second_file + ' --cores=16')
         
-        break
     
     return
         
             
-#def alignment(data_dir, kallisto_output):
-
+def alignment(data_dir, kallisto_path, kallisto_idx, kallisto_output):
+    data = sorted(os.listdir(data_dir))
+    for i in range(0, len(data), 2):
+        first_file = os.path.join(data_dir, data[i])
+        second_file = os.path.join(data_dir, data[i+1])
+        
+        os.system(kallisto_path + ' quant -i ' + kallisto_idx + ' -o ' + kallisto_output + ' -b 0 ' + first_file + ' ' + second_file)
+        
+        break
+    
+    return
+    
         
 
 # def process_data(data_dir, fastqc_path, fq_output_bc, fq_output_ac, cutadapt_output):
