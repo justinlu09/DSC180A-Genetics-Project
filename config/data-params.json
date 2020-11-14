@@ -1,4 +1,7 @@
 {
     "data_dir": "/datasets/srp073813",
-    "output": "data/output/unprocessed.csv"
+    "fastqc_path": "/opt/FastQC/fastqc",
+    "fq_output_bc": "data/raw/fastqc_temp_bc",
+    "cutadapt_output": "data/raw/cutadapt_output",
+    "fq_output_ac": "data/raw/fastqc_temp_ac"
 }
