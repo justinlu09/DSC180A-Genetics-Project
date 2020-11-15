@@ -1,8 +1,10 @@
 import os
 
+
 def quality_check(data_dir, fastqc_path, fq_output_bc):
     data = sorted(os.listdir(data_dir))
     count = 0
+    failed_checks = []
     for j in range(0, len(data), 2):
         if (data[j] in os.listdir(fq_output_bc)) and (data[j+1] in os.listdir(fq_output_bc)):
             continue
@@ -13,11 +15,20 @@ def quality_check(data_dir, fastqc_path, fq_output_bc):
         
         #running fastqc on the pair of files before cutadapt
         os.system(fastqc_path + ' ' + first_file + ' ' + second_file + ' --outdir ' + fq_output_bc)
-    
+        
         count += 1
+        
+        # check FastQC report results here
+        # if fail, add the name to failed_checks
+        # return failed_checks at the end
+        
+        
         if count == 4:
             break
+            
+         
     return
+
 
 def clean_adapters(data_dir, cutadapt_output):
     data = sorted(os.listdir(data_dir))
