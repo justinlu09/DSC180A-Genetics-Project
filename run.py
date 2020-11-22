@@ -5,6 +5,7 @@ import json
 sys.path.insert(0, 'src')
 #import etl
 from etl import quality_check, clean_adapters, alignment
+from analysis import generate_gene_mat
 
 
 
@@ -24,11 +25,22 @@ def main(targets):
         kallisto_data = alignment(**align_cfg)
         
     
+    if 'analysis' in targets:
+        with open('config/analysis-params.json') as fh:
+            analysis_cfg = json.load(fh)
+        
+        gene_matrix_data = generate_gene_mat(**analysis_cfg)
+        
+        
+    #if 'test' in targets:
+        
+    
+    
 #     if 'report' in targets:
 #         with open('
         
     
-    #if 'analysis' in targets:
+    
     
     return
         

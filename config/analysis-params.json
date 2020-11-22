@@ -1,0 +1,4 @@
+{
+    "kallisto_out": "data/raw/kallisto_output",
+    "gene_matrix_out": "data/raw/gene_matrix.csv"
+}
