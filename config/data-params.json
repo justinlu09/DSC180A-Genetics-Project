@@ -1,5 +1,4 @@
 {
-    "data_dir": "/datasets/srp073813",
     "indir_fastqc": "/teams/DSC180A_FA20_A00/b04genetics/personal_jll020/raw/raw/fastqc_temp_bc",
     "indir_kallisto": "/teams/DSC180A_FA20_A00/b04genetics/personal_jll020/raw/raw/kallisto_output",
     "indir_gene_matrix": "/teams/DSC180A_FA20_A00/b04genetics/personal_jll020/raw/raw/gene_matrix.csv",
