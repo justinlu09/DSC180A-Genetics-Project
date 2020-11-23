@@ -1,0 +1,4 @@
+SRR3438555_1.fastq.gz
+SRR3438555_2.fastq.gz
+SRR3438722_1.fastq.gz
+SRR3438722_2.fastq.gz

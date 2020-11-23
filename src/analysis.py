@@ -22,3 +22,9 @@ def generate_gene_mat(kallisto_out, gene_matrix_out):
     gene_matrix.to_csv(gene_matrix_out)
     
     return
+
+def test_gene_mat(kallisto_out, gene_matrix_out):
+    
+    generate_gene_mat(kallisto_out, gene_matrix_out)
+    
+    return

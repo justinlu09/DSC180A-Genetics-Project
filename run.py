@@ -3,8 +3,7 @@ import sys
 import os
 import json
 sys.path.insert(0, 'src')
-#import etl
-from etl import quality_check, clean_adapters, alignment
+from etl import quality_check, clean_adapters, alignment, run_test
 from analysis import generate_gene_mat
 
 
@@ -32,7 +31,15 @@ def main(targets):
         gene_matrix_data = generate_gene_mat(**analysis_cfg)
         
         
-    #if 'test' in targets:
+    if 'test' in targets:
+        with open('config/test-params.json') as fh:
+            test_cfg = json.load(fh)
+        
+        #test_out = run_test(**test_cfg)
+        test_gene_mat_out = generate_gene_mat(test_cfg.get('kallisto_out'), test_cfg.get('gene_matrix_out'))
+        
+        #gene_matrix_data = generate_gene_mat(
+        #inputs: testdata.csv, fastqc_output_test, 
         
     
     

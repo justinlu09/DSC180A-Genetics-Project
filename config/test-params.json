@@ -1,0 +1,10 @@
+{
+    "data_dir": "/datasets/srp073813",
+    "test_data": "./test/testdata/test.txt",
+    "fastqc_path": "/opt/FastQC/fastqc",
+    "fastqc_test": "./test/out/fastqc_test_out",
+    "kallisto_path": "/opt/kallisto_linux-v0.42.4/kallisto",
+    "kallisto_idx": "/datasets/srp073813/reference/kallisto_transcripts.idx",
+    "kallisto_out": "./test/out/kallisto_test_out",
+    "gene_matrix_out": "./test/out/gene_matrix_test_out.csv"
+}
