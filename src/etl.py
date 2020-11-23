@@ -24,8 +24,8 @@ def quality_check(data_dir, fastqc_path, fq_output_bc):
     for j in range(0, len(data), 2):
         if ((data[j][:12] + '_fastqc.html') in os.listdir(fq_output_bc)) and ((data[j+1] [:12] + '_fastqc.html') in os.listdir(fq_output_bc)):
             #count += 1
-            break
-            #continue
+            #break
+            continue
         
         #pair of files (..._1.fastq.gz, ..._2.fastq.gz)
         first_file = os.path.join(srp_data, data[j])
@@ -130,7 +130,6 @@ def alignment(data_dir, kallisto_path, kallisto_idx, kallisto_output):
         data = sorted(os.listdir(data_dir))
         srp_data = data_dir
     
-    
     #count = 0
     logging.info("Starting alignment with Kallisto...")
     for i in range(0, len(data), 2):
@@ -158,14 +157,3 @@ def run_test(data_dir, test_data, fastqc_path, fastqc_test, kallisto_path, kalli
     aligning = alignment(test_fastq, kallisto_path, kallisto_idx, kallisto_out)
     
     return
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

@@ -35,13 +35,9 @@ def main(targets):
         with open('config/test-params.json') as fh:
             test_cfg = json.load(fh)
         
-        #test_out = run_test(**test_cfg)
+        test_out = run_test(**test_cfg)
         test_gene_mat_out = generate_gene_mat(test_cfg.get('kallisto_out'), test_cfg.get('gene_matrix_out'))
-        
-        #gene_matrix_data = generate_gene_mat(
-        #inputs: testdata.csv, fastqc_output_test, 
-        
-    
+     
     
 #     if 'report' in targets:
 #         with open('
