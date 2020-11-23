@@ -6,7 +6,7 @@ sys.path.insert(0, 'src')
 from quality import quality_check, clean_adapters, alignment, run_test
 from etl import get_data
 from analysis import generate_gene_mat
-from test import test
+#from test import test
 
 
 
