@@ -1,6 +1,6 @@
 {
     "test_data": "./test/testdata/test.txt",
-    "outdir_fastqc" = "data/raw/fastqc_output",
-    "outdir_kallisto" = "data/raw/kallisto_output",
-    "outdir_gene_matrix" = "data/raw/gene_matrix.csv"
+    "outdir_fastqc": "data/raw/fastqc_output",
+    "outdir_kallisto": "data/raw/kallisto_output",
+    "outdir_gene_matrix": "data/raw/gene_matrix.csv"
 }
