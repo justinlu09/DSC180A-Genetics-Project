@@ -3,8 +3,10 @@ import sys
 import os
 import json
 sys.path.insert(0, 'src')
-from etl import quality_check, clean_adapters, alignment, run_test
+from quality import quality_check, clean_adapters, alignment, run_test
+from etl import get_data
 from analysis import generate_gene_mat
+from test import test
 
 
 
@@ -30,13 +32,20 @@ def main(targets):
         
         gene_matrix_data = generate_gene_mat(**analysis_cfg)
         
+    if 'data' in targets:
+        with open('config/data-params.json') as fh:
+            data_cfg = json.load(fh)
+        
+        getting_data = get_data(**data_cfg)
         
     if 'test' in targets:
         with open('config/test-params.json') as fh:
             test_cfg = json.load(fh)
+        with open('config/data-params.json') as fh:
+            data_cfg = json.load(fh)
         
-        test_out = run_test(**test_cfg)
-        test_gene_mat_out = generate_gene_mat(test_cfg.get('kallisto_out'), test_cfg.get('gene_matrix_out'))
+        getting_data = get_data(**data_cfg)
+        test_out = test(**test_cfg)
      
     
 #     if 'report' in targets:
