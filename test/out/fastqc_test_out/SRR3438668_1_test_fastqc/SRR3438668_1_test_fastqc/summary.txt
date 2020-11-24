@@ -1,0 +1,11 @@
+PASS	Basic Statistics	SRR3438668_1_test.fq
+PASS	Per base sequence quality	SRR3438668_1_test.fq
+PASS	Per sequence quality scores	SRR3438668_1_test.fq
+FAIL	Per base sequence content	SRR3438668_1_test.fq
+WARN	Per sequence GC content	SRR3438668_1_test.fq
+PASS	Per base N content	SRR3438668_1_test.fq
+PASS	Sequence Length Distribution	SRR3438668_1_test.fq
+PASS	Sequence Duplication Levels	SRR3438668_1_test.fq
+WARN	Overrepresented sequences	SRR3438668_1_test.fq
+PASS	Adapter Content	SRR3438668_1_test.fq
+PASS	Kmer Content	SRR3438668_1_test.fq
