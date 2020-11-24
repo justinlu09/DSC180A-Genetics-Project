@@ -7,7 +7,7 @@ logging.basicConfig(filename="log.txt", filemode='a',
  level=logging.DEBUG)
 
 
-def get_data(data_dir, indir_fastqc, indir_kallisto, indir_gene_matrix, outdir_fastqc, outdir_kallisto, outdir_gene_matrix):
+def get_data(indir_fastqc, indir_kallisto, indir_gene_matrix, outdir_fastqc, outdir_kallisto, outdir_gene_matrix):
     directory = "data"
     parent_dir = "./"
     path = os.path.join(parent_dir, directory)
