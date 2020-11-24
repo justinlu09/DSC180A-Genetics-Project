@@ -1,6 +1,9 @@
 # raw data
 data
 
+# logs
+log.txt
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
