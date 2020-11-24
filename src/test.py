@@ -7,7 +7,7 @@ def test(test_data, fastqc_path, outdir_fastqc, kallisto_path, kallisto_idx, out
     
     if ('.ipynb_checkpoints' in os.listdir(test_data)):
         shutil.rmtree(os.path.join(test_data, '.ipynb_checkpoints'))
-    
+    print('Extracting 10000 lines from 8 fastqc files from the DSLP brain region for the different disorders & controls as test data')
     print('Starting pipeline on test data...')
     print('Running FastQC on test data...')
     quality_check(test_data, fastqc_path, outdir_fastqc)

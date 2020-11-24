@@ -4,6 +4,6 @@
 	"n_processed": 2500,
 	"kallisto_version": "0.42.4",
 	"index_version": 10,
-	"start_time": "Mon Nov 23 19:15:55 2020",
+	"start_time": "Mon Nov 23 19:30:37 2020",
 	"call": "/opt/kallisto_linux-v0.42.4/kallisto quant -i /datasets/srp073813/reference/kallisto_transcripts.idx -b 8 -o ./test/out/kallisto_test_out/SRR3438668 -t 8 ./test/testdata/SRR3438668_1_test.fq ./test/testdata/SRR3438668_2_test.fq"
 }
