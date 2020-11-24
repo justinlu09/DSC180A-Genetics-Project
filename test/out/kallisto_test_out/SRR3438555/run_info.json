@@ -1,9 +1,0 @@
-{
-	"n_targets": 78751,
-	"n_bootstraps": 8,
-	"n_processed": 2500,
-	"kallisto_version": "0.42.4",
-	"index_version": 10,
-	"start_time": "Mon Nov 23 19:28:42 2020",
-	"call": "/opt/kallisto_linux-v0.42.4/kallisto quant -i /datasets/srp073813/reference/kallisto_transcripts.idx -b 8 -o ./test/out/kallisto_test_out/SRR3438555 -t 8 ./test/testdata/SRR3438555_1_test.fq ./test/testdata/SRR3438555_2_test.fq"
-}
