@@ -1,7 +1,0 @@
-{
-    "config": ["config/process-params.json", "config/align-params.json"],
-    "build": "run.py", 
-    "library": ["src"], 
-    "notebook": ["notebooks/report.ipynb"], 
-    "targets": ["process", "align"] 
-}
