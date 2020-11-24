@@ -6,6 +6,6 @@ FAIL	Per sequence GC content	SRR3438555_1_test.fq
 WARN	Per base N content	SRR3438555_1_test.fq
 PASS	Sequence Length Distribution	SRR3438555_1_test.fq
 PASS	Sequence Duplication Levels	SRR3438555_1_test.fq
-WARN	Overrepresented sequences	SRR3438555_1_test.fq
+PASS	Overrepresented sequences	SRR3438555_1_test.fq
 PASS	Adapter Content	SRR3438555_1_test.fq
 PASS	Kmer Content	SRR3438555_1_test.fq
