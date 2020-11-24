@@ -30,9 +30,3 @@ def generate_gene_mat(kallisto_out, gene_matrix_out):
     logging.info("Finished creating gene matrix.")
     
     return
-
-def test_gene_mat(kallisto_out, gene_matrix_out):
-    
-    generate_gene_mat(kallisto_out, gene_matrix_out)
-    
-    return

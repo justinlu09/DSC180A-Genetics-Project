@@ -3,17 +3,17 @@ import sys
 import os
 import json
 sys.path.insert(0, 'src')
-from quality import quality_check, clean_adapters, alignment, run_test
+from process import quality_check, check_fastqc, clean_adapters, alignment
 from etl import get_data
 from analysis import generate_gene_mat
-#from test import test
+from test import test
 
 
 
 def main(targets):
     if 'process' in targets:
         with open('config/process-params.json') as fh:
-            data_cfg = json.load(fh)
+            process_cfg = json.load(fh)
         
         fastq_data_b = quality_check(data_cfg.get('data_dir'), data_cfg.get('fastqc_path'), data_cfg.get('fq_output_bc'))
         
@@ -41,10 +41,7 @@ def main(targets):
     if 'test' in targets:
         with open('config/test-params.json') as fh:
             test_cfg = json.load(fh)
-        with open('config/data-params.json') as fh:
-            data_cfg = json.load(fh)
-        
-        getting_data = get_data(**data_cfg)
+
         test_out = test(**test_cfg)
      
     

@@ -1,6 +1,9 @@
 {
-    "test_data": "./test/testdata/test.txt",
-    "outdir_fastqc": "data/raw/fastqc_output",
-    "outdir_kallisto": "data/raw/kallisto_output",
-    "outdir_gene_matrix": "data/raw/gene_matrix.csv"
+    "test_data": "./test/testdata",
+    "fastqc_path": "/opt/FastQC/fastqc",
+    "kallisto_path": "/opt/kallisto_linux-v0.42.4/kallisto",
+    "kallisto_idx": "/datasets/srp073813/reference/kallisto_transcripts.idx",
+    "outdir_fastqc": "./test/out/fastqc_test_out",
+    "outdir_kallisto": "./test/out/kallisto_test_out",
+    "outdir_gene_matrix": "./test/out/gene_matrix_test_out.csv"
 }
