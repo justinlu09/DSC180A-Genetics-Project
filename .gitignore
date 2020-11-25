@@ -1,6 +1,9 @@
 # raw data
 data
 
+# test data output
+test/out
+
 # logs
 log.txt
 
