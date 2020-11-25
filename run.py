@@ -7,7 +7,7 @@ from process import quality_check, check_fastqc, clean_adapters, alignment
 from etl import get_data
 from analysis import generate_gene_mat
 from test import test
-
+from utils import convert_notebook
 
 
 def main(targets):
@@ -45,7 +45,11 @@ def main(targets):
             test_cfg = json.load(fh)
 
         test_out = test(**test_cfg)
-     
+    
+    if 'eda' in targets:
+        with open('config/eda-params.json') as fh:
+            eda_cfg = json.load(fh)
+        convert_notebook(**eda_cfg)
     
 #     if 'report' in targets:
 #         with open('
