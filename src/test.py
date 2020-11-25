@@ -5,6 +5,8 @@ from analysis import generate_gene_mat
 
 def test(test_data, fastqc_path, kallisto_path, kallisto_idx, outdir):
     out = os.path.join(outdir, 'out')
+    if (os.path.exists(out) and os.path.isdir(out)):
+        shutil.rmtree(out)
     os.mkdir(out)
     
     if ('.ipynb_checkpoints' in os.listdir(test_data)):
