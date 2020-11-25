@@ -4,6 +4,9 @@ data
 # logs
 log.txt
 
+# test output
+./test/out
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
