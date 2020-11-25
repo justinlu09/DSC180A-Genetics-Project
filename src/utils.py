@@ -6,7 +6,7 @@ def convert_notebook(outdir, report_in_dir, report_out_dir):
 #     curdir = os.path.abspath(os.getcwd())
 #     indir, _ = os.path.split(report_in_dir)
 #     outdir, _ = os.path.split(report_out_dir)
-    out = 
+    #out = 
     os.mkdir(outdir)
     
     config = {
