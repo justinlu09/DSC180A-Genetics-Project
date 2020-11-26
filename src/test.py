@@ -3,7 +3,7 @@ import shutil
 from process import quality_check, check_fastqc, clean_adapters, alignment
 from analysis import generate_gene_mat
 
-def test(test_data, fastqc_path, kallisto_path, kallisto_idx, outdir):
+def test(test_data, fastqc_path, kallisto_path, kallisto_idx, gene_naming_table, sra_run_table, outdir):
     test_output_dir = os.path.join(outdir, 'out')
     
     #remove data dir if one already exists
@@ -32,7 +32,7 @@ def test(test_data, fastqc_path, kallisto_path, kallisto_idx, outdir):
     
     print('Generating gene matrix from test data...')
     outdir_gene_matrix = os.path.join(test_output_dir, 'gene_matrix_test_out.csv')
-    generate_gene_mat(outdir_kallisto, outdir_gene_matrix)
+    generate_gene_mat(gene_naming_table, sra_run_table, outdir_kallisto, outdir_gene_matrix)
     
     print('FastQC outputs can now be found at ./test/out/fastqc_test_out/')
     print('Kallisto outputs can now be found at ./test/out/kallisto_test_out/')

@@ -52,5 +52,5 @@ def generate_gene_mat(gene_naming_table, sra_run_table, kallisto_out, gene_matri
     gene_matrix.to_csv(gene_matrix_out)
     logging.info("Finished creating gene matrix.")
     
-    print(gene_matrix.shape)
+    #print(gene_matrix.shape)
     return 

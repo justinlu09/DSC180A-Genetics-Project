@@ -3,5 +3,7 @@
     "fastqc_path": "/opt/FastQC/fastqc",
     "kallisto_path": "/opt/kallisto_linux-v0.42.4/kallisto",
     "kallisto_idx": "/datasets/srp073813/reference/kallisto_transcripts.idx",
+    "gene_naming_table": "/datasets/srp073813/reference/Gene_Naming.csv",
+    "sra_run_table": "/datasets/srp073813/reference/SraRunTable.csv",
     "outdir": "./test"
 }
