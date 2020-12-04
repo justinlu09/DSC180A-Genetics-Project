@@ -27,16 +27,19 @@ def generate_gene_mat(gene_naming_table, sra_run_table, kallisto_out, gene_matri
         abundance = pd.read_csv(abundance_tsv, sep = '\t')['est_counts']
         gene_matrix[i] = abundance
 
-    for j in g['Run'].values:
-        if len(j) == 2:
-            gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]]
-            gene_matrix.drop(j[1], axis = 1, inplace = True)
-        else:
-            gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]] + gene_matrix[j[2]]
-            gene_matrix.drop(j[1], axis = 1, inplace = True)
-            gene_matrix.drop(j[2], axis = 1, inplace = True)
-
     
+    for j in g['Run'].values:
+        if j[0] in os.listdir(kallisto_out):
+            if len(j) == 2:
+                gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]]
+                gene_matrix.drop(j[1], axis = 1, inplace = True)
+            else:
+                gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]] + gene_matrix[j[2]]
+                gene_matrix.drop(j[1], axis = 1, inplace = True)
+                gene_matrix.drop(j[2], axis = 1, inplace = True)
+        else:
+            break
+
     gene_matrix['genes'] = pd.read_csv(os.path.join(kallisto_out, i, 'abundance.tsv'), sep = '\t')['target_id']
     
     gm = gene_matrix.copy()
