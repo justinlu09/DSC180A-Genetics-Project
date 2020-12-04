@@ -1,4 +1,6 @@
 {
+    "gene_naming_table": "/datasets/srp073813/reference/Gene_Naming.csv",
+    "sra_run_table": "/datasets/srp073813/reference/SraRunTable.csv",
     "kallisto_out": "data/raw/kallisto_output",
     "gene_matrix_out": "data/raw/gene_matrix.csv"
 }

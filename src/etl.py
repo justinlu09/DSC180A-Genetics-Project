@@ -1,5 +1,6 @@
 import os
 import logging
+import shutil
 
 logging.basicConfig(filename="log.txt", filemode='a',
  format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -11,6 +12,10 @@ def get_data(indir_fastqc, indir_kallisto, indir_gene_matrix, outdir_fastqc, out
     directory = "data"
     parent_dir = "./"
     path = os.path.join(parent_dir, directory)
+    
+    #remove data dir if one already exists
+    if (os.path.exists(path) and os.path.isdir(path)):
+        shutil.rmtree(path)
     
     os.mkdir(path)
     

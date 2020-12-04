@@ -1,6 +1,12 @@
 # raw data
 data
 
+# test data output
+test/out
+
+# logs
+log.txt
+
 # Jupyter Notebook
 .ipynb_checkpoints
 

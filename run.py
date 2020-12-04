@@ -3,22 +3,24 @@ import sys
 import os
 import json
 sys.path.insert(0, 'src')
-from quality import quality_check, clean_adapters, alignment, run_test
+from process import quality_check, check_fastqc, clean_adapters, alignment
 from etl import get_data
 from analysis import generate_gene_mat
-#from test import test
+from test import test
 
 
 
 def main(targets):
     if 'process' in targets:
         with open('config/process-params.json') as fh:
-            data_cfg = json.load(fh)
+            process_cfg = json.load(fh)
         
-        fastq_data_b = quality_check(data_cfg.get('data_dir'), data_cfg.get('fastqc_path'), data_cfg.get('fq_output_bc'))
+        quality_check(process_cfg.get('data_dir'), process_cfg.get('fastqc_path'), process_cfg.get('fq_output_bc'))
         
-        if len(fastq_data_b) > 0:
-            cutadapt_data = clean_adapters(fastq_data_b, data_cfg.get('cutadapt_output'))
+        failed_checks = check_fastqc(process_cfg.get('fq_output_bc'))
+        
+        if len(failed_checks) > 0:
+            cutadapt_data = clean_adapters(failed_checks, process_cfg.get('cutadapt_output'))
         
     if 'align' in targets:
         with open('config/align-params.json') as fh:
@@ -41,10 +43,7 @@ def main(targets):
     if 'test' in targets:
         with open('config/test-params.json') as fh:
             test_cfg = json.load(fh)
-        with open('config/data-params.json') as fh:
-            data_cfg = json.load(fh)
-        
-        getting_data = get_data(**data_cfg)
+
         test_out = test(**test_cfg)
      
     
