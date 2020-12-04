@@ -17,18 +17,26 @@ def generate_gene_mat(gene_naming_table, sra_run_table, kallisto_out, gene_matri
         shutil.rmtree(os.path.join(kallisto_out, '.ipynb_checkpoints'))
     
     sra_run = pd.read_csv(sra_run_table)
-    dropped = sra_run.drop_duplicates(subset = ['BioSample'], keep = 'last')
-    runs = dropped['Run'].values
+    dups = sra_run[sra_run.duplicated(subset=['BioSample'], keep = False)]
+    g = dups.groupby('BioSample')['Run'].apply(list)
+    g = pd.DataFrame(g)
     
     for i in sorted(os.listdir(kallisto_out)):
         SRR_path = os.path.join(kallisto_out, i)
-        if i in runs:
-            abundance_tsv = os.path.join(SRR_path, 'abundance.tsv')
-            abundance = pd.read_csv(abundance_tsv, sep = '\t')['tpm']
-            gene_matrix[i] = abundance
-        else:
-            continue
+        abundance_tsv = os.path.join(SRR_path, 'abundance.tsv')
+        abundance = pd.read_csv(abundance_tsv, sep = '\t')['est_counts']
+        gene_matrix[i] = abundance
 
+    for j in g['Run'].values:
+        if len(j) == 2:
+            gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]]
+            gene_matrix.drop(j[1], axis = 1, inplace = True)
+        else:
+            gene_matrix[j[0]] = gene_matrix[j[0]] + gene_matrix[j[1]] + gene_matrix[j[2]]
+            gene_matrix.drop(j[1], axis = 1, inplace = True)
+            gene_matrix.drop(j[2], axis = 1, inplace = True)
+
+    
     gene_matrix['genes'] = pd.read_csv(os.path.join(kallisto_out, i, 'abundance.tsv'), sep = '\t')['target_id']
     
     gm = gene_matrix.copy()
@@ -54,3 +62,7 @@ def generate_gene_mat(gene_naming_table, sra_run_table, kallisto_out, gene_matri
     
     #print(gene_matrix.shape)
     return 
+
+
+
+
