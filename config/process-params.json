@@ -3,5 +3,10 @@
     "fastqc_path": "/opt/FastQC/fastqc",
     "fq_output_bc": "data/raw/fastqc_temp_bc",
     "cutadapt_output": "data/raw/cutadapt_output",
-    "fq_output_ac": "data/raw/fastqc_temp_ac"
+    "fq_output_ac": "data/raw/fastqc_temp_ac",
+    "adapter1": "AACCGGTT",
+    "adapter2": "AACCGGTT",
+    "last_html": -4,
+    "run_name": 12,
+    "num_cores": "16"
 }

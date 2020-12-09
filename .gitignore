@@ -3,6 +3,7 @@ data
 
 # test data output
 test/out
+test/tmp
 
 # logs
 log.txt

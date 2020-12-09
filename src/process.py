@@ -7,13 +7,11 @@ logging.basicConfig(filename="log.txt", filemode='a',
  datefmt='%H:%M:%S',
  level=logging.DEBUG)
 
-def quality_check(data_dir, fastqc_path, fq_output_bc):
+def quality_check(data_dir, fastqc_path, fq_output_bc, run_name):
     data = sorted(os.listdir(data_dir))
-#     count = 0
     logging.info("Starting FastQC...")
     for j in range(0, len(data), 2):
-        if ((data[j][:12] + '_fastqc.html') in os.listdir(fq_output_bc)) and ((data[j+1] [:12] + '_fastqc.html') in os.listdir(fq_output_bc)):
-            #count += 1
+        if ((data[j][:run_name] + '_fastqc.html') in os.listdir(fq_output_bc)) and ((data[j+1] [:run_name] + '_fastqc.html') in os.listdir(fq_output_bc)):
             continue
         
         #pair of files (..._1.fastq.gz, ..._2.fastq.gz)
@@ -24,14 +22,11 @@ def quality_check(data_dir, fastqc_path, fq_output_bc):
         
         #running fastqc on the pair of files before cutadapt
         os.system(fastqc_path + ' ' + first_file + ' ' + second_file + ' --outdir ' + fq_output_bc)
-        
-#         count += 1
-#         if count == 16:
-#             break
+     
     return
     
 
-def check_fastqc(fq_output_bc):
+def check_fastqc(fq_output_bc, last_html):
     zipped = []
     for i in os.listdir(fq_output_bc):
         if i.endswith('zip'):
@@ -49,20 +44,20 @@ def check_fastqc(fq_output_bc):
         zip_path_2 = os.path.join(fq_output_bc, fq_out_2)
         
         with zipfile.ZipFile(zip_path_1, 'r') as zip_ref:
-            zip_ref.extractall(os.path.join(fq_output_bc, fq_out_1[:-4]))
+            zip_ref.extractall(os.path.join(fq_output_bc, fq_out_1[:last_html]))
             
         with zipfile.ZipFile(zip_path_2, 'r') as zip_ref:
-            zip_ref.extractall(os.path.join(fq_output_bc, fq_out_2[:-4]))
+            zip_ref.extractall(os.path.join(fq_output_bc, fq_out_2[:last_html]))
         
         #print(zips[i])
         text1 = ''
-        with open(os.path.join(fq_output_bc, fq_out_1[:-4], fq_out_1[:-4], 'fastqc_data.txt')) as fh:
+        with open(os.path.join(fq_output_bc, fq_out_1[:last_html], fq_out_1[:last_html], 'fastqc_data.txt')) as fh:
             text1 = fh.readlines()[1]
         #print(text1)
         
         #print(zips[i+1])
         text2 = ''
-        with open(os.path.join(fq_output_bc, fq_out_2[:-4], fq_out_2[:-4], 'fastqc_data.txt')) as fh:
+        with open(os.path.join(fq_output_bc, fq_out_2[:last_html], fq_out_2[:last_html], 'fastqc_data.txt')) as fh:
             text2 = fh.readlines()[1]
         #print(text2)
         
@@ -70,7 +65,7 @@ def check_fastqc(fq_output_bc):
         os.remove(zip_path_2)
         
         if ('pass' in text1 and 'pass' in text2):
-            logging.info(str(fq_out_1[:-4]) + " and " + str(fq_out_2[:-4]) + " passed checks.")
+            logging.info(str(fq_out_1[:last_html]) + " and " + str(fq_out_2[:last_html]) + " passed checks.")
             continue
         else:
             failed_checks.append(fq_out_1)
@@ -79,7 +74,7 @@ def check_fastqc(fq_output_bc):
     return failed_checks
 
 
-def clean_adapters(failed, cutadapt_output):
+def clean_adapters(failed, cutadapt_output, adapter1, adapter2, num_cores):
     data = sorted(os.listdir(failed))
     if len(failed) == 0:
         return
@@ -87,26 +82,22 @@ def clean_adapters(failed, cutadapt_output):
         first_file = os.path.join(data_dir, data[i])
         second_file = os.path.join(data_dir, data[i+1])
         
-        os.system('cutadapt -a AACCGGTT -A AACCGGTT -o ' + cutadapt_output + '/' + data[i] + ' -p ' + cutadapt_output + '/' + data[i+1] + ' ' + first_file + ' ' + second_file + ' --cores=16')
+        os.system('cutadapt -a ' + adapter1 + ' -A ' + adapter2 + ' -o ' + cutadapt_output + '/' + data[i] + ' -p ' + cutadapt_output + '/' + data[i+1] + ' ' + first_file + ' ' + second_file + ' --cores=' + num_cores)
         
     return
 
 
-def alignment(data_dir, kallisto_path, kallisto_idx, kallisto_output):
-    
+def alignment(data_dir, kallisto_path, kallisto_idx, kallisto_output, num_boots, num_threads):
     data = sorted(os.listdir(data_dir))
-    
-    #count = 0
     logging.info("Starting alignment with Kallisto...")
     for i in range(0, len(data), 2):
         if 'SRR' in data[i]:
-            #count += 1 
             first_file = os.path.join(data_dir, data[i])
             second_file = os.path.join(data_dir, data[i+1])
             
             logging.info("Running pair-end alignment with Kallisto on " + str(data[i]) + " and " + str(data[i+1]))
             
-            os.system(kallisto_path + ' quant -i ' + kallisto_idx + ' -b 8 -o ' + os.path.join(kallisto_output, data[i][:10]) + ' ' + first_file + ' ' + second_file + ' -t 8') #+ ' >>' + os.path.join(kallisto_output, data[i][:10],'pseudo.bam'))
+            os.system(kallisto_path + ' quant -i ' + kallisto_idx + ' -b ' + num_boots + ' -o ' + os.path.join(kallisto_output, data[i][:10]) + ' ' + first_file + ' ' + second_file + ' -t ' + num_threads)
         else:
             break
     

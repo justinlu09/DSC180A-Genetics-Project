@@ -2,5 +2,7 @@
     "data_dir": "/datasets/srp073813",
     "kallisto_path": "/opt/kallisto_linux-v0.42.4/kallisto",
     "kallisto_idx": "/datasets/srp073813/reference/kallisto_transcripts.idx",
-    "kallisto_output": "data/raw/kallisto_output"
+    "kallisto_output": "data/raw/kallisto_output",
+    "num_boots": "8",
+    "num_threads": "8"
 }
