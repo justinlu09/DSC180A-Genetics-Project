@@ -384,19 +384,6 @@ res_nacc_control_mdd = res_nacc_control_mdd[res_nacc_control_mdd$baseMean >= 10,
 hist(res_nacc_control_mdd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs MDD', xlab = 'P-value', breaks = 20)
 
 
-################# nAcc SPEARMAN CORRELATION PLOTTING ################
-
-res_nacc_control_bpd_LFC = res_nacc_control_bpd$log2FoldChange
-res_nacc_control_sz_LFC = res_nacc_control_sz$log2FoldChange
-res_nacc_control_mdd_LFC = res_nacc_control_mdd$log2FoldChange
-nacc_df = data.frame(res_nacc_control_sz_LFC, res_nacc_control_bpd_LFC, res_nacc_control_mdd_LFC)
-
-
-cor_nacc = cor(nacc_df, method = "spearman", use = "complete.obs")
-#cor_nacc = abs(cor_nacc)
-corrplot(cor_nacc, method = "circle", diag = FALSE)
-
-
 
 
 ############# 3x3 for pvalues ###################
