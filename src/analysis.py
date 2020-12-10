@@ -65,7 +65,7 @@ def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     sra_run = pd.read_csv(sra_run_table)
     
     #getting gene matrix
-    gene_matrix = pd.read_csv(gene_matrix_out)
+    gene_matrix = pd.read_csv(gene_matrix_out, index_col = 0)
     sra_run = sra_run[sra_run['Run'].isin(gene_matrix.columns)]
     new = sra_run.drop_duplicates(subset = ['BioSample'], keep = 'first')
     
