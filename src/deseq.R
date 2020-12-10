@@ -353,6 +353,7 @@ dev.off()
 
 
 ############# 3x3 for spearman #####################
+res_ancg_control_bpd_LFC = res_ancg_control_bpd$log2FoldChange
 res_ancg_control_sz_LFC = res_ancg_control_sz$log2FoldChange
 res_ancg_control_mdd_LFC = res_ancg_control_mdd$log2FoldChange
 ancg_df = data.frame(res_ancg_control_sz_LFC, res_ancg_control_bpd_LFC, res_ancg_control_mdd_LFC)
