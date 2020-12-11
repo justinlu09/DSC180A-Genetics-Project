@@ -85,6 +85,9 @@ def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     dlpfc_sz = new.groupby('source_name').get_group('DLPFC_Schizophrenia')['Run'].tolist()
     dlpfc_mdd = new.groupby('source_name').get_group('DLPFC_Major Depression')['Run'].tolist()
     
+    if (os.path.exists(tmp_out) and os.path.isdir(tmp_out)):
+        shutil.rmtree(tmp_out)
+    
     os.mkdir(tmp_out)
     
     # AnCg Control vs BPD
@@ -266,10 +269,7 @@ def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     dlpfc_control_mdd_coldata.to_csv(tmp_out + '/dlpfc_control_mdd_coldata.csv')
     
     
-    #call deseq.R script here
-    
     return
-    
-    
-    
-    
+   
+def run_deseq(gene_matrix_out, tmp_out_ancg_bpd, tmp_out_ancg_bpd_coldata, tmp_out_ancg_sz, tmp_out_ancg_sz_coldata, tmp_out_ancg_mdd, tmp_out_ancg_mdd_coldata, tmp_out_dlpfc_bpd, tmp_out_dlpfc_bpd_coldata, tmp_out_dlpfc_sz, tmp_out_dlpfc_sz_coldata, tmp_out_dlpfc_mdd, tmp_out_dlpfc_mdd_coldata, tmp_out_nacc_bpd, tmp_out_nacc_bpd_coldata, tmp_out_nacc_sz, tmp_out_nacc_sz_coldata, tmp_out_nacc_mdd, tmp_out_nacc_mdd_coldata, figures_out):
+    os.system("Rscript src/deseq.R " + gene_matrix_out + ' ' + tmp_out_ancg_bpd + ' ' + tmp_out_ancg_bpd_coldata + ' ' + tmp_out_ancg_sz + ' ' + tmp_out_ancg_sz_coldata + ' ' + tmp_out_ancg_mdd + ' ' + tmp_out_ancg_mdd_coldata + ' ' + tmp_out_dlpfc_bpd + ' ' + tmp_out_dlpfc_bpd_coldata + ' ' + tmp_out_dlpfc_sz + ' ' + tmp_out_dlpfc_sz_coldata + ' ' + tmp_out_dlpfc_mdd + ' ' + tmp_out_dlpfc_mdd_coldata + ' ' + tmp_out_nacc_bpd + ' ' + tmp_out_nacc_bpd_coldata + ' ' + tmp_out_nacc_sz + ' ' + tmp_out_nacc_sz_coldata + ' ' + tmp_out_nacc_mdd + ' ' + tmp_out_nacc_mdd_coldata + ' ' + figures_out)

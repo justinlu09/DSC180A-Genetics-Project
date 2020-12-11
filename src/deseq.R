@@ -1,28 +1,32 @@
 myArgs <- commandArgs(trailingOnly = TRUE)
-print(myArgs)
+
+gene_matrix <- as.matrix(read.csv(myArgs[1], row.names = 1, header = TRUE))
+print(dim(gene_matrix))
+
+cts <- as.matrix(read.csv(myArgs[2], row.names = 1, header = TRUE))
+print(dim(cts))
 
 # install packages
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("DESeq2")
 BiocManager::install("apeglm")
+install.packages("corrplot")
+install.packages("VennDiagram")
 
 # ---------------- IMPORTS ---------------- #
 
-# import packages
 library("DESeq2")
 
-install.packages("corrplot")
 library("corrplot")
 
-install.packages("VennDiagram")
 library("VennDiagram")
 
 
 # GETTING VST, RANKING BY L2 NORM
 norm_vec <- function(x) sqrt(sum(x^2))
 
-gene_matrix <- as.matrix(read.csv('~/R/dsc180a_genetics/gene_matrix.csv', row.names = 1, header = TRUE))
+gene_matrix <- as.matrix(read.csv(myArgs[1], row.names = 1, header = TRUE))
 vsd <- vst(round(gene_matrix))
 vsd_df <- data.frame(vsd)
 vsd_df$sqerr <- apply(vsd_df, 1, norm_vec)
@@ -36,9 +40,9 @@ final_vsd_cts$sqerr = NULL
 # ---------------- DATA ---------------- #
 
 # get data
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/ancg_control_bpd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[2], row.names = 1, header = TRUE))
 
-coldata <- read.csv('~/R/dsc180a_genetics/ancg_control_bpd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[3], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 
 cts = cts[rownames(final_vsd_cts), ]
@@ -68,10 +72,10 @@ hist(res_ancg_control_bpd$pvalue, ylim=c(0, 1500), col = 'red', main = 'AnCg Con
 # ---------------- DATA ---------------- #
 
 # get data
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/ancg_control_sz.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[4], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/ancg_control_sz_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[5], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -103,10 +107,10 @@ hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Con
 ############## ANCG CONTROL VS MDD ################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/ancg_control_mdd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[6], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/ancg_control_mdd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[7], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -137,10 +141,10 @@ hist(res_ancg_control_mdd$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Co
 ############## DLPFC CONTROL VS BPD #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/dlpfc_control_bpd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[8], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/dlpfc_control_bpd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[9], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -171,10 +175,10 @@ hist(res_dlpfc_control_bpd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC
 ############## DLPFC CONTROL VS SZ #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/dlpfc_control_sz.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[10], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/dlpfc_control_sz_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[11], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -204,10 +208,10 @@ hist(res_dlpfc_control_sz$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC 
 ############## DLPFC CONTROL VS MDD #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/dlpfc_control_mdd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[12], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/dlpfc_control_mdd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[13], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -237,10 +241,10 @@ hist(res_dlpfc_control_mdd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC
 ############## NACC CONTROL VS BPD #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/nacc_control_bpd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[14], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/nacc_control_bpd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[15], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -271,10 +275,10 @@ hist(res_nacc_control_bpd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc 
 ############## NACC CONTROL VS SZ #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/nacc_control_sz.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[16], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/nacc_control_sz_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[17], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -304,10 +308,10 @@ hist(res_nacc_control_sz$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc C
 ############## NACC CONTROL VS MDD #################
 
 #----------- DATA -------------------
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/nacc_control_mdd.csv', row.names = 1, header = TRUE))
+cts <- as.matrix(read.csv(myArgs[18], row.names = 1, header = TRUE))
 head(cts)
 
-coldata <- read.csv('~/R/dsc180a_genetics/nacc_control_mdd_coldata.csv', row.names=1)
+coldata <- read.csv(myArgs[19], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 head(coldata)
 
@@ -337,7 +341,7 @@ hist(res_nacc_control_mdd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc 
 
 
 ############# 3x3 for pvalues ###################
-jpeg("~/R/dsc180a_genetics/histplot.jpg", width = 1080, height = 720)
+jpeg(myArgs[20] + "/histplot.jpg", width = 1080, height = 720)
 par(mfrow = c(3,3), mai = c(0.7, 0.7, 0.2, 0.1))
 hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg', xlab = NULL, ylab = expression(bold("SZ")), breaks = 20, cex.main = 2.5, cex.lab = 2, cex.axis = 1.5)
 hist(res_dlpfc_control_sz$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC', xlab = NULL, ylab = "Frequency", breaks = 20, cex.main = 2.5, cex.lab = 2, cex.axis = 1.5)
@@ -372,7 +376,7 @@ all = data.frame(ancg_df, dlpfc_df, nacc_df)
 all_cor = cor(all, method = "spearman", use = "complete.obs")
 colnames(all_cor) <- c("SZ", "BPD", "MDD", "SZ", "BPD", "MDD", "SZ", "BPD", "MDD")
 rownames(all_cor) <- c("SZ", "BPD", "MDD", "SZ", "BPD", "MDD", "SZ", "BPD", "MDD")
-jpeg("~/R/dsc180a_genetics/corrplot.jpg", width = 1080, height = 720)
+jpeg(myArgs[20] + "/corrplot.jpg", width = 1080, height = 720)
 corrplot(all_cor, method = "circle", diag = FALSE, tl.col = "black", tl.cex = 2, mar = c(4,4,4,4))
 mtext(text = c(expression(bold("nAcc")), expression(bold("DLPFC")), expression(bold("AnCg"))), side = 2, line = -11, at = c(2,5,8), las = 0, cex = 3)
 mtext(text = c(expression(bold("AnCg")), expression(bold("DLPFC")), expression(bold("nAcc"))), side = 1, line = -43, at = c(2,5,8), las = 0, cex = 3)
@@ -385,7 +389,7 @@ ancg_sz_diffs = rownames(res_ancg_control_sz[res_ancg_control_sz$pvalue < 0.05,]
 ancg_mdd_diffs = rownames(res_ancg_control_mdd[res_ancg_control_mdd$pvalue < 0.05,])
 
 grid.newpage()
-jpeg("~/r/dsc180a_genetics/vennDiagram.jpg", width = 1080, height = 1080)
+jpeg(myArgs[20] + "/vennDiagram.jpg", width = 1080, height = 1080)
 VD = venn.diagram(x = list(SZ = ancg_sz_diffs, BPD = ancg_bpd_diffs, MDD = ancg_mdd_diffs), filename = NULL, scaled = FALSE,
                   fill = c("red", "blue", "green"), cex = 6, cat.cex = 5, cat.fontface = "bold", output = TRUE)
 grid.draw(VD)

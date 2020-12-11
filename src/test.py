@@ -1,9 +1,10 @@
 import os
 import shutil
 from process import quality_check, check_fastqc, clean_adapters, alignment
-from analysis import generate_gene_mat, split_for_comparison
+from analysis import generate_gene_mat, split_for_comparison, run_deseq
 
-def test(test_data, fastqc_path, run_name, last_html, kallisto_path, kallisto_idx, num_boots, num_threads, gene_naming_table, sra_run_table, chromosomes_needed, outdir):
+def test(test_data, fastqc_path, run_name, last_html, kallisto_path, kallisto_idx, num_boots, num_threads, gene_naming_table, sra_run_table, chromosomes_needed, outdir, tmp_out_ancg_bpd, tmp_out_ancg_bpd_coldata, tmp_out_ancg_sz, tmp_out_ancg_sz_coldata, tmp_out_ancg_mdd, tmp_out_ancg_mdd_coldata, tmp_out_dlpfc_bpd, tmp_out_dlpfc_bpd_coldata, tmp_out_dlpfc_sz, tmp_out_dlpfc_sz_coldata, tmp_out_dlpfc_mdd, tmp_out_dlpfc_mdd_coldata, tmp_out_nacc_bpd, tmp_out_nacc_bpd_coldata, tmp_out_nacc_sz, tmp_out_nacc_sz_coldata, tmp_out_nacc_mdd, tmp_out_nacc_mdd_coldata, figures_out):
+    
     test_output_dir = os.path.join(outdir, 'out')
     
     #remove data dir if one already exists
@@ -42,12 +43,7 @@ def test(test_data, fastqc_path, run_name, last_html, kallisto_path, kallisto_id
     
     deseq_output_dir = os.path.join(outdir, 'tmp')
     
-    #remove data dir if one already exists
-    if (os.path.exists(deseq_output_dir) and os.path.isdir(deseq_output_dir)):
-        shutil.rmtree(deseq_output_dir)
-    
-    os.mkdir(deseq_output_dir)
-    
-    split_for_comparison("./test/out/gene_matrix_test_out.csv", sra_run_table, deseq_output_dir)  
+    split_for_comparison(outdir_gene_matrix, sra_run_table, deseq_output_dir)
+    run_deseq(outdir_gene_matrix, tmp_out_ancg_bpd, tmp_out_ancg_bpd_coldata, tmp_out_ancg_sz, tmp_out_ancg_sz_coldata, tmp_out_ancg_mdd, tmp_out_ancg_mdd_coldata, tmp_out_dlpfc_bpd, tmp_out_dlpfc_bpd_coldata, tmp_out_dlpfc_sz, tmp_out_dlpfc_sz_coldata, tmp_out_dlpfc_mdd, tmp_out_dlpfc_mdd_coldata, tmp_out_nacc_bpd, tmp_out_nacc_bpd_coldata, tmp_out_nacc_sz, tmp_out_nacc_sz_coldata, tmp_out_nacc_mdd, tmp_out_nacc_mdd_coldata, figures_out)
     return
     

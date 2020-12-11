@@ -1,0 +1,22 @@
+{
+    "gene_matrix_out": "data/raw/gene_matrix.csv",
+    "tmp_out_ancg_bpd": "data/tmp/ancg_control_bpd.csv",
+    "tmp_out_ancg_bpd_coldata": "data/tmp/ancg_control_bpd_coldata.csv",
+    "tmp_out_ancg_sz": "data/tmp/ancg_control_sz.csv",
+    "tmp_out_ancg_sz_coldata": "data/tmp/ancg_control_sz_coldata.csv",
+    "tmp_out_ancg_mdd": "data/tmp/ancg_control_mdd.csv",
+    "tmp_out_ancg_mdd_coldata": "data/tmp/ancg_control_mdd_coldata.csv",
+    "tmp_out_dlpfc_bpd": "data/tmp/dlpfc_control_bpd.csv",
+    "tmp_out_dlpfc_bpd_coldata": "data/tmp/dlpfc_control_bpd_coldata.csv",
+    "tmp_out_dlpfc_sz": "data/tmp/dlpfc_control_sz.csv",
+    "tmp_out_dlpfc_sz_coldata": "data/tmp/dlpfc_control_sz_coldata.csv",
+    "tmp_out_dlpfc_mdd": "data/tmp/dlpfc_control_mdd.csv",
+    "tmp_out_dlpfc_mdd_coldata": "data/tmp/dlpfc_control_mdd_coldata.csv",
+    "tmp_out_nacc_bpd": "data/tmp/nacc_control_bpd.csv",
+    "tmp_out_nacc_bpd_coldata": "data/tmp/nacc_control_bpd_coldata.csv",
+    "tmp_out_nacc_sz": "data/tmp/nacc_control_sz.csv",
+    "tmp_out_nacc_sz_coldata": "data/tmp/nacc_control_sz_coldata.csv",
+    "tmp_out_nacc_mdd": "data/tmp/nacc_control_mdd.csv",
+    "tmp_out_nacc_mdd_coldata": "data/tmp/nacc_control_mdd_coldata.csv",
+    "figures_out": "data/out"
+}
