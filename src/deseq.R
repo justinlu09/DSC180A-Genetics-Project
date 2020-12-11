@@ -13,15 +13,16 @@ BiocManager::install("DESeq2")
 BiocManager::install("apeglm")
 install.packages("corrplot")
 install.packages("VennDiagram")
+install.packages("pheatmap")
 
 # ---------------- IMPORTS ---------------- #
-
 library("DESeq2")
 
 library("corrplot")
 
 library("VennDiagram")
 
+library("pheatmap")
 
 # GETTING VST, RANKING BY L2 NORM
 norm_vec <- function(x) sqrt(sum(x^2))
@@ -46,7 +47,6 @@ coldata <- read.csv(myArgs[3], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
 
 cts = cts[rownames(final_vsd_cts), ]
-all(rownames(coldata) == colnames(cts))
 
 #create DESeqDataSet object
 dds <- DESeqDataSetFromMatrix(countData = round(cts),
@@ -58,13 +58,12 @@ dds$disorder <- factor(dds$disorder, levels = c("AnCgControl","AnCgBipolarDisord
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 dds = DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_ancg_control_bpd = results(dds, alpha = 0.05)
 res_ancg_control_bpd = res_ancg_control_bpd[res_ancg_control_bpd$baseMean >= 10,]
-hist(res_ancg_control_bpd$pvalue, ylim=c(0, 1500), col = 'red', main = 'AnCg Control vs BPD', xlab = 'P-value', breaks = 20)
+#hist(res_ancg_control_bpd$pvalue, ylim=c(0, 1500), col = 'red', main = 'AnCg Control vs BPD', xlab = 'P-value', breaks = 20)
 
 
 
@@ -73,11 +72,9 @@ hist(res_ancg_control_bpd$pvalue, ylim=c(0, 1500), col = 'red', main = 'AnCg Con
 
 # get data
 cts <- as.matrix(read.csv(myArgs[4], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[5], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -91,7 +88,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 
 # factors in R!
@@ -101,18 +97,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~age + PMI + pH)
 
 res_ancg_control_sz = results(dds, alpha = 0.05)
 res_ancg_control_sz = res_ancg_control_sz[res_ancg_control_sz$baseMean >= 10,]
-hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs SZ', xlab = 'P-value', breaks = 20)
+#hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs SZ', xlab = 'P-value', breaks = 20)
 
 
 ############## ANCG CONTROL VS MDD ################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[6], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[7], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -126,7 +120,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("AnCgControl","AnCgMajorDepression"))
@@ -135,18 +128,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_ancg_control_mdd = results(dds, alpha = 0.05)
 res_ancg_control_mdd = res_ancg_control_mdd[res_ancg_control_mdd$baseMean >= 10,]
-hist(res_ancg_control_mdd$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs MDD', xlab = 'P-value', breaks = 20)
+#hist(res_ancg_control_mdd$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs MDD', xlab = 'P-value', breaks = 20)
 
 
 ############## DLPFC CONTROL VS BPD #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[8], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[9], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -160,7 +151,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("DLPFCControl","DLPFCBipolarDisorder"))
@@ -169,18 +159,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_dlpfc_control_bpd = results(dds, alpha = 0.05)
 res_dlpfc_control_bpd = res_dlpfc_control_bpd[res_dlpfc_control_bpd$baseMean >= 10,]
-hist(res_dlpfc_control_bpd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs BPD', xlab = 'P-value', breaks = 20)
+#hist(res_dlpfc_control_bpd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs BPD', xlab = 'P-value', breaks = 20)
 
 
 ############## DLPFC CONTROL VS SZ #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[10], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[11], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -193,7 +181,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("DLPFCControl","DLPFCSchizophrenia"))
@@ -202,18 +189,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_dlpfc_control_sz = results(dds, alpha = 0.05)
 res_dlpfc_control_sz = res_dlpfc_control_sz[res_dlpfc_control_sz$baseMean >= 10,]
-hist(res_dlpfc_control_sz$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs SZ', xlab = 'P-value', breaks = 20)
+#hist(res_dlpfc_control_sz$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs SZ', xlab = 'P-value', breaks = 20)
 
 
 ############## DLPFC CONTROL VS MDD #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[12], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[13], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -226,7 +211,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("DLPFCControl","DLPFCMajorDepression"))
@@ -235,18 +219,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_dlpfc_control_mdd = results(dds, alpha = 0.05)
 res_dlpfc_control_mdd = res_dlpfc_control_mdd[res_dlpfc_control_mdd$baseMean >= 10,]
-hist(res_dlpfc_control_mdd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs MDD', xlab = 'P-value', breaks = 20)
+#hist(res_dlpfc_control_mdd$pvalue, ylim = c(0,1500), col = 'blue', main = 'DLPFC Control vs MDD', xlab = 'P-value', breaks = 20)
 
 
 ############## NACC CONTROL VS BPD #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[14], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[15], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -260,7 +242,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("nAccControl","nAccBipolarDisorder"))
@@ -269,18 +250,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_nacc_control_bpd = results(dds, alpha = 0.05)
 res_nacc_control_bpd = res_nacc_control_bpd[res_nacc_control_bpd$baseMean >= 10,]
-hist(res_nacc_control_bpd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs BPD', xlab = 'P-value', breaks = 20)
+#hist(res_nacc_control_bpd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs BPD', xlab = 'P-value', breaks = 20)
 
 
 ############## NACC CONTROL VS SZ #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[16], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[17], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -293,7 +272,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("nAccControl","nAccSchizophrenia"))
@@ -302,18 +280,16 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_nacc_control_sz = results(dds, alpha = 0.05)
 res_nacc_control_sz = res_nacc_control_sz[res_nacc_control_sz$baseMean >= 10,]
-hist(res_nacc_control_sz$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs SZ', xlab = 'P-value', breaks = 20)
+#hist(res_nacc_control_sz$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs SZ', xlab = 'P-value', breaks = 20)
 
 
 ############## NACC CONTROL VS MDD #################
 
 #----------- DATA -------------------
 cts <- as.matrix(read.csv(myArgs[18], row.names = 1, header = TRUE))
-head(cts)
 
 coldata <- read.csv(myArgs[19], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -327,7 +303,6 @@ dds <- DESeqDataSetFromMatrix(countData = round(cts),
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("nAccControl","nAccMajorDepression"))
@@ -336,7 +311,7 @@ dds <- DESeq(dds, test = "LRT", reduced = ~ age + PMI + pH)
 
 res_nacc_control_mdd = results(dds, alpha = 0.05)
 res_nacc_control_mdd = res_nacc_control_mdd[res_nacc_control_mdd$baseMean >= 10,]
-hist(res_nacc_control_mdd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs MDD', xlab = 'P-value', breaks = 20)
+#hist(res_nacc_control_mdd$pvalue, ylim = c(0,1500), col = 'green', main = 'nAcc Control vs MDD', xlab = 'P-value', breaks = 20)
 
 
 
@@ -397,17 +372,19 @@ dev.off()
 
 
 ################### HEAT MAP ####################
-############### ANCG CONTROL VS SZ ################################
-# ---------------- DATA ---------------- #
-
 # get data
-cts <- as.matrix(read.csv('~/R/dsc180a_genetics/ancg_control_sz.csv', row.names = 1, header = TRUE))
-head(cts)
+gene_matrix <- as.matrix(read.csv(myArgs[1], row.names = 1, header = TRUE))
+vsd <- vst(round(gene_matrix))
+vsd_df <- data.frame(vsd)
+vsd_df$sqerr <- apply(vsd_df, 1, norm_vec)
+sorted_vsd_df = vsd_df[order(-vsd_df$sqerr), ]
+final_vsd_cts = head(sorted_vsd_df, 8000)
+final_vsd_cts$sqerr = NULL
 
-coldata <- read.csv('~/R/dsc180a_genetics/ancg_control_sz_coldata.csv', row.names=1)
+cts <- as.matrix(read.csv(myArgs[4], row.names = 1, header = TRUE))
+
+coldata <- read.csv(myArgs[5], row.names=1)
 coldata$disorder <- factor(coldata$disorder)
-head(coldata)
-
 
 cts = cts[rownames(final_vsd_cts), ]
 
@@ -418,48 +395,32 @@ all(rownames(coldata) == colnames(cts))
 dds <- DESeqDataSetFromMatrix(countData = round(cts),
                               colData = coldata,
                               design = ~ age + PMI + pH + disorder)
-dds
 
 featureData <- data.frame(gene = rownames(cts))
 mcols(dds) <- DataFrame(mcols(dds), featureData)
-mcols(dds)
+
 
 
 # factors in R!
 dds$disorder <- factor(dds$disorder, levels = c("AnCgControl", "AnCgSchizophrenia"))
 
 dds <- DESeq(dds, test = "LRT", reduced = ~age + PMI + pH)
-#lfc <- lfcShrink(dds, coef = "disorder_AnCgSchizophrenia_vs_AnCgControl", type = "apeglm")
+lfc <- lfcShrink(dds, coef = "disorder_AnCgSchizophrenia_vs_AnCgControl", type = "apeglm")
 
-
-
-res_ancg_control_sz = results(dds, alpha = 0.05)
+res_ancg_control_sz = lfc
 res_ancg_control_sz = res_ancg_control_sz[res_ancg_control_sz$baseMean >= 10,]
-res_ancg_control_sz
-hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs SZ', xlab = 'P-value', breaks = 20)
+#hist(res_ancg_control_sz$pvalue, ylim = c(0,1500), col = 'red', main = 'AnCg Control vs SZ', xlab = 'P-value', breaks = 20)
 
-head(res_ancg_control_sz[res_ancg_control_sz$pvalue < 0.05,], 1003)
-
-
-
-install.packages("gplots")
-library("gplots")
-library("pheatmap")
 col_df <- as.data.frame((colData(dds))[,c("disorder", "age")])
 col_df$age <- NULL
 ann_colors = list(disorder = c("AnCgSchizophrenia" = "red", "AnCgControl" = "black"))
-filter = res_ancg_control_sz[res_ancg_control_sz$padj < 0.05,]
-filter = filter[abs(filter$log2FoldChange) > 1,]
-filter_rn = rownames(filter)
-filter_rn
-final_vsd_cts_hm = final_vsd_cts[filter_rn,]
-pheatmap(filter$log2FoldChange, scale = "row", 
+res_hm = head(res_ancg_control_sz[res_ancg_control_sz$pvalue < 0.05,], 1003)
+filter_rn = rownames(res_hm)
+final_cts_hm = cts[filter_rn,]
+
+dev.off()
+jpeg("~/r/dsc180a_genetics/heatMap.jpg", width = 1080, height = 720)
+pheatmap(final_cts_hm * res_hm$log2FoldChange, scale = "row", 
          cluster_rows = FALSE, cluster_cols=TRUE, show_rownames=FALSE, show_colnames = FALSE, 
-         annotation_col = col_df, xlab = "Patients", ylab = "Genes", 
-         annotation_colors = ann_colors)
-
-
-
-
-
-
+         annotation_col = col_df, annotation_colors = ann_colors, fontsize = 15)
+dev.off()

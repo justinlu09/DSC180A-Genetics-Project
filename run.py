@@ -49,12 +49,6 @@ def main(targets):
             test_cfg = json.load(fh)
 
         test_out = test(**test_cfg)
-     
-    
-#     if 'report' in targets:
-#         with open('
-        
-    
     
     
     return
