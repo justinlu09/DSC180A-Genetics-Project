@@ -272,4 +272,10 @@ def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     return
    
 def run_deseq(gene_matrix_out, tmp_out_ancg_bpd, tmp_out_ancg_bpd_coldata, tmp_out_ancg_sz, tmp_out_ancg_sz_coldata, tmp_out_ancg_mdd, tmp_out_ancg_mdd_coldata, tmp_out_dlpfc_bpd, tmp_out_dlpfc_bpd_coldata, tmp_out_dlpfc_sz, tmp_out_dlpfc_sz_coldata, tmp_out_dlpfc_mdd, tmp_out_dlpfc_mdd_coldata, tmp_out_nacc_bpd, tmp_out_nacc_bpd_coldata, tmp_out_nacc_sz, tmp_out_nacc_sz_coldata, tmp_out_nacc_mdd, tmp_out_nacc_mdd_coldata, figures_out):
+    
+    if (os.path.exists(figures_out) and os.path.isdir(figures_out)):
+        shutil.rmtree(figures_out)
+    
+    os.mkdir(figures_out)
+    
     os.system("Rscript src/deseq.R " + gene_matrix_out + ' ' + tmp_out_ancg_bpd + ' ' + tmp_out_ancg_bpd_coldata + ' ' + tmp_out_ancg_sz + ' ' + tmp_out_ancg_sz_coldata + ' ' + tmp_out_ancg_mdd + ' ' + tmp_out_ancg_mdd_coldata + ' ' + tmp_out_dlpfc_bpd + ' ' + tmp_out_dlpfc_bpd_coldata + ' ' + tmp_out_dlpfc_sz + ' ' + tmp_out_dlpfc_sz_coldata + ' ' + tmp_out_dlpfc_mdd + ' ' + tmp_out_dlpfc_mdd_coldata + ' ' + tmp_out_nacc_bpd + ' ' + tmp_out_nacc_bpd_coldata + ' ' + tmp_out_nacc_sz + ' ' + tmp_out_nacc_sz_coldata + ' ' + tmp_out_nacc_mdd + ' ' + tmp_out_nacc_mdd_coldata + ' ' + figures_out)
