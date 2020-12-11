@@ -6,7 +6,7 @@ sys.path.insert(0, 'src')
 from process import quality_check, check_fastqc, clean_adapters, alignment
 from etl import get_data
 from analysis import generate_gene_mat, split_for_comparison, run_deseq
-from test import test
+from test import test, generate_report
 
 
 
@@ -48,7 +48,11 @@ def main(targets):
         with open('config/test-params.json') as fh:
             test_cfg = json.load(fh)
 
-        test_out = test(**test_cfg)
+        with open('config/report-params.json') as fh:
+            report_cfg = json.load(fh)
+        
+        #test_out = test(**test_cfg)
+        report = generate_report(**report_cfg)
     
     
     return
