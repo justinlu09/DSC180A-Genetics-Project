@@ -51,7 +51,7 @@ def main(targets):
         with open('config/report-params.json') as fh:
             report_cfg = json.load(fh)
         
-        #test_out = test(**test_cfg)
+        test_out = test(**test_cfg)
         report = generate_report(**report_cfg)
     
     
