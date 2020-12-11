@@ -34,8 +34,8 @@ def main(targets):
         with open('config/deseq-params.json') as fh:
             deseq_cfg = json.load(fh)
         
-        #gene_matrix_data = generate_gene_mat(analysis_cfg.get("gene_naming_table"), analysis_cfg.get("sra_run_table"), analysis_cfg.get("kallisto_out"), analysis_cfg.get("gene_matrix_out"), analysis_cfg.get("chromosomes_needed"))
-        #split_for_deseq = split_for_comparison(analysis_cfg.get("gene_matrix_out"), analysis_cfg.get("sra_run_table"), analysis_cfg.get("tmp_out"))
+        gene_matrix_data = generate_gene_mat(analysis_cfg.get("gene_naming_table"), analysis_cfg.get("sra_run_table"), analysis_cfg.get("kallisto_out"), analysis_cfg.get("gene_matrix_out"), analysis_cfg.get("chromosomes_needed"))
+        split_for_deseq = split_for_comparison(analysis_cfg.get("gene_matrix_out"), analysis_cfg.get("sra_run_table"), analysis_cfg.get("tmp_out"))
         deseq = run_deseq(**deseq_cfg)
         
     if 'data' in targets:
