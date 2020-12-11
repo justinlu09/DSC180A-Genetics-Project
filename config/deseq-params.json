@@ -18,5 +18,5 @@
     "tmp_out_nacc_sz_coldata": "data/tmp/nacc_control_sz_coldata.csv",
     "tmp_out_nacc_mdd": "data/tmp/nacc_control_mdd.csv",
     "tmp_out_nacc_mdd_coldata": "data/tmp/nacc_control_mdd_coldata.csv",
-    "figures_out": "data/out/figures"
+    "figures_out": "data/figures"
 }

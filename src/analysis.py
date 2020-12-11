@@ -59,7 +59,7 @@ def generate_gene_mat(gene_naming_table, sra_run_table, kallisto_out, gene_matri
     logging.info("Finished creating gene matrix.")
     
     #print(gene_matrix.shape)
-    return 
+    return gene_matrix
 
 def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     sra_run = pd.read_csv(sra_run_table)

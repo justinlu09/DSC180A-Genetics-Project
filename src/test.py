@@ -44,6 +44,7 @@ def test(test_data, fastqc_path, run_name, last_html, kallisto_path, kallisto_id
     deseq_output_dir = os.path.join(outdir, 'tmp')
     
     split_for_comparison(outdir_gene_matrix, sra_run_table, deseq_output_dir)
+    print('Data needed for DESeq2 can now be found at ./test/tmp/')
     #run_deseq(outdir_gene_matrix, tmp_out_ancg_bpd, tmp_out_ancg_bpd_coldata, tmp_out_ancg_sz, tmp_out_ancg_sz_coldata, tmp_out_ancg_mdd, tmp_out_ancg_mdd_coldata, tmp_out_dlpfc_bpd, tmp_out_dlpfc_bpd_coldata, tmp_out_dlpfc_sz, tmp_out_dlpfc_sz_coldata, tmp_out_dlpfc_mdd, tmp_out_dlpfc_mdd_coldata, tmp_out_nacc_bpd, tmp_out_nacc_bpd_coldata, tmp_out_nacc_sz, tmp_out_nacc_sz_coldata, tmp_out_nacc_mdd, tmp_out_nacc_mdd_coldata, figures_out)
     return
     
