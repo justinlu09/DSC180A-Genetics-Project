@@ -85,7 +85,7 @@ def split_for_comparison(gene_matrix_out, sra_run_table, tmp_out):
     dlpfc_sz = new.groupby('source_name').get_group('DLPFC_Schizophrenia')['Run'].tolist()
     dlpfc_mdd = new.groupby('source_name').get_group('DLPFC_Major Depression')['Run'].tolist()
     
-    
+    os.mkdir(tmp_out)
     
     # AnCg Control vs BPD
     ancg_control_df = gene_matrix[ancg_control]
