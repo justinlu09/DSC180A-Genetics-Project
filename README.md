@@ -8,7 +8,7 @@ This project demonstrates how researchers used RNA-sequencing of dissected post-
 ## Building the project using `run.py`
 * Use the command `python run.py process` to quality check and process the data (using `FastQC` and `cutadapt`)
 * Use the command `python run.py align` to align the pairs (using `Kallisto`)
-* Use the command `python run.py analysis` to start the analysis of the `Kallisto` outputs by creating a `gene_matrix.csv` and splitting the matrix into separate CSVs for the DESeq2 gene expression analysis
+* Use the command `python run.py analysis` to start the analysis of the `Kallisto` outputs by creating a `gene_matrix.csv` and splitting the matrix into separate CSVs for DESeq2 gene expression analysis
 * Use the command `python run.py data` to create the data folder (this data folder includes all the necessary data for our project); it is created through a symbolic link to our data directory in the /teams directory (only if you are on UC San Diego DSMLP)
 * Use the command `python run.py test` to run the pipeline above on a subset of the data; this also creates a report.html that outlines our pipeline
 * Use the command `python run.py all` to run the pipeline above on the whole dataset
