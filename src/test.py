@@ -17,7 +17,7 @@ def test(test_data, fastqc_path, run_name, last_html, kallisto_path, kallisto_id
         shutil.rmtree(os.path.join(test_data, '.ipynb_checkpoints'))
     
     print('Starting pipeline on test data...')
-    print('Test data created using `zcat` on raw fastq files, extracting 20 lines of sequences from 24 fastq.gz files')
+    print('Test data created using `zcat` on raw fastq files, extracting 20 lines of sequences from 4 fastq.gz files')
     print('Running FastQC on test data...')
     outdir_fastqc = os.path.join(test_output_dir, 'fastqc_test_out')
     os.mkdir(outdir_fastqc)
